@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+
+  frontend:
+    build: .
+    container_name: frontend
+
+    environment:
+      - APP_FRONT_PORT= 3000
+      - APP_FRONT_HOST= http://localhost:3000/
+    ports:
+      - "3000:3000"
+    
+  back:
+    build: .
+    container_name: backend
+
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings
+      - ENDPOINT=http://0.0.0.0:8000/api/requests-loan/
+      - SECRET_KEY=7d@1v(esv5f75z=k25(6@md7q4reb$w$j8e2c2o^1w+7rpwgks
+    ports:
+      - "7001:7001"
+    depends_on:
+      - db
+    volumes:
+      - back_data:/backend
+    command: python3 manage.py runserver 0.0.0.0:8000
+  
+  db:
+    image: postgres:12
+    container_name: db
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+       
+volumes:
+  back_data:
+  db_data:
