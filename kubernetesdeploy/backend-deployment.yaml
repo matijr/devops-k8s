@@ -56,13 +56,13 @@ spec:
         ports:
         - containerPort: 8000
         resources: {}
-        volumeMounts:
-        - mountPath: /backend
-          name: back-data
+#        volumeMounts:
+#        - mountPath: /backend
+#          name: back-data
       restartPolicy: Always
       serviceAccountName: ""
-      volumes:
-      - name: back-data
-        persistentVolumeClaim:
-          claimName: back-data
+#      volumes:
+#      - name: back-data
+#        persistentVolumeClaim:
+#          claimName: back-data
 status: {}
